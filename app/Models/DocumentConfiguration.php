@@ -16,6 +16,14 @@ class DocumentConfiguration extends Model
      */
     protected $table = 'document_configuration';
 
+    //TODO write specific fields to be taken from data passed when creating this model
+    // /**
+    //  * The attributes that are mass assignable.
+    //  *
+    //  * @var array
+    //  */
+    // protected $fillable = [''];
+
     /**
      * Indicates if the model should be timestamped.
      *
