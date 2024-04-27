@@ -39,13 +39,17 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-        $document = $request->validate([
-            'document' => ['required']
-        ]);
+        // $data = $request->validate([
+        //     'document' => ['required']
+        // ]);
+        $data = request()->all(); // TODO remove when finished testing
 
-        dd($document);
-        
-        return 'store';
+        $documentConfig = DocumentConfiguration::create($data);
+        $document = Document::create($data);
+
+        dump($document->toArray(), $documentConfig->toArray()); // TODO remove when done tesing
+
+        return 'Successfully created document: ';
     }
 
     /**

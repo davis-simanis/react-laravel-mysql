@@ -16,13 +16,12 @@ class Document extends Model
      */
     protected $table = 'document';
 
-    //TODO write specific fields to be taken from data passed when creating this model
-    // /**
-    //  * The attributes that are mass assignable.
-    //  *
-    //  * @var array
-    //  */
-    // protected $fillable = [''];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['document_name'];
 
     /**
      * Removes updated_at timestamp from model.
