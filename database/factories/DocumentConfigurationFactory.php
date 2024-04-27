@@ -21,7 +21,7 @@ class DocumentConfigurationFactory extends Factory
             'is_mandatory' => $this->faker->boolean(),
             'field_type' => $this->faker->numberBetween(0, 10),
             'field_name' => $this->faker->word(),
-            'document_id' => 1,
+            'document_id' => $this->faker->numberBetween(0, 10),
             'select_values' => null
         ];
     }
