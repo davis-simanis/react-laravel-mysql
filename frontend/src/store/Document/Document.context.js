@@ -19,7 +19,7 @@ export function useDocumentList() {
 
   if (!documentList) {
     axios
-      .get('http://localhost/api/documents')
+      .get('http://localhost:8081/api/documents')
       .then(({ data }) => {
         updateList(data);
       })
