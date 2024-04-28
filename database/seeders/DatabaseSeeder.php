@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        //todo improve so that each documents refers to more than one document configuration with FK
         Document::factory(5)->create();
         DocumentConfiguration::factory(15)->create();
     }

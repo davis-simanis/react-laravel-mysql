@@ -16,11 +16,6 @@
         </style>
     </head>
     <body class="font-sans antialiased dark:bg-black dark:text-white/50">
-        <div>
-            <form name="document" method="POST">
-                <input type="number" style="border: 3px solid green">
-                <button type="submit">SUBMIT</button>
-            </form>
-        </div>
+        <h1>BLADE TEMPLATE RENDERED USING SSR</h1>
     </body>
 </html>

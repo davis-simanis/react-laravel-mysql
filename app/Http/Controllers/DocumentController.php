@@ -21,7 +21,7 @@ class DocumentController
             if (!$documentConfig) {
                 continue;
             }
-
+            //todo refactor
             array_push(
                 $resultDocuments,
                 [
@@ -44,7 +44,7 @@ class DocumentController
         //     'document' => ['required']
         // ]);
         $data = request()->all(); // TODO remove when finished testing
-dd($data);
+        dd($data);
         $documentConfig = DocumentConfiguration::create($data);
         $document = Document::create($data);
 
@@ -66,7 +66,7 @@ dd($data);
                 'error' => 'No document with id: ' . $id
             ]);
         }
-
+        //todo refactor
         return response()->json([
             'document' => $document,
             'documentConfig' => $documentConfig
@@ -92,7 +92,7 @@ dd($data);
 
         $document->update($data);
         $documentConfig->update($data);
-
+        //todo refactor
         return response()->json([
             'document' => $document,
             'documentConfig' => $documentConfig
@@ -104,6 +104,7 @@ dd($data);
      */
     public function destroy(string $id)
     {
+        //todo implement delete operations
         return 'destroy';
     }
 }
