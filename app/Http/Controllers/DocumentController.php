@@ -25,8 +25,9 @@ class DocumentController
             array_push(
                 $resultDocuments,
                 [
-                    'document' => $document,
-                    'documentConfig' => $documentConfig
+                    ...$documentConfig->toArray(),
+                    ...$document->toArray(),
+                    'id' => $documentConfig->id
                 ]
             );
         }
