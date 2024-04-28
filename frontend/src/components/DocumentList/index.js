@@ -1,1 +1,1 @@
-export { default } from './DocumentList.container';
+export { default } from './DocumentList.component';

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react';
+import axios from 'axios';
 
 const DocumentContext = createContext(null);
 
@@ -13,5 +14,22 @@ export function DocumentProvider({ children }) {
 }
 
 export function useDocumentList() {
-  return useContext(DocumentContext);
+  const context = useContext(DocumentContext);
+  const { documentList, updateList } = context;
+
+  if (!documentList) {
+    axios
+      .get('http://localhost/api/documents')
+      .then(({ data }) => {
+        updateList(data);
+      })
+      .catch((error) => console.log(error));
+
+    return {
+      ...context,
+      documentList: []
+    };
+  }
+
+  return context;
 }
