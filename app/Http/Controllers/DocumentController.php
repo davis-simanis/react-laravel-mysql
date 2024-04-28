@@ -6,7 +6,7 @@ use App\Models\Document;
 use App\Models\DocumentConfiguration;
 use Illuminate\Http\Request;
 
-class DocumentController extends Controller
+class DocumentController
 {
     /**
      * Display a listing of the resource.
@@ -43,7 +43,7 @@ class DocumentController extends Controller
         //     'document' => ['required']
         // ]);
         $data = request()->all(); // TODO remove when finished testing
-
+dd($data);
         $documentConfig = DocumentConfiguration::create($data);
         $document = Document::create($data);
 
@@ -77,7 +77,25 @@ class DocumentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return 'update';
+        // $data = $request->validate([
+        //     'document' => ['required']
+        // ]);
+        $data = request()->all(); // TODO remove when finished testing
+        $document = Document::where('id', $id)->first();
+        $documentConfig = DocumentConfiguration::where('document_id', $id)->first();
+        dd($data);
+
+        if (!$document || !$documentConfig) {
+            return printf('No document found with id %s', $id);
+        }
+
+        $document->update($data);
+        $documentConfig->update($data);
+
+        return response()->json([
+            'document' => $document,
+            'documentConfig' => $documentConfig
+        ]);
     }
 
     /**
