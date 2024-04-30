@@ -1,20 +1,49 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import React from 'react';
-import DocumentsPage from './pages/Documents';
 import NotFound from './pages/NotFound';
+import { Outlet, createBrowserRouter } from 'react-router-dom';
+import { View, Create, Preview } from './routes/document';
 
-export default function Router() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/documents">
-          <Route index element={<DocumentsPage type='view' />} />
-          <Route path=":document_id" element={<DocumentsPage type='view' />} />
-          <Route path="edit" element={<DocumentsPage type='edit' />} />
-          <Route path="create" element={<DocumentsPage type='create' />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
-  );
-}
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: (
+      <>
+        <div>Hello world! </div>
+        <Outlet />
+      </>
+    ),
+    errorElement: <NotFound />,
+    loader: () => {
+      return { data_fetch: 'this is data from db' };
+    },
+    action: () => {
+      console.log('root route action');
+    },
+    children: [
+      {
+        path: 'documents',
+        element: (
+          <div>
+            <Outlet />
+          </div>
+        ),
+        children: [
+          {
+            path: ':documentId',
+            element: <View />
+          },
+          {
+            path: 'create',
+            element: <Create />
+          },
+          {
+            path: 'preview/:documentId',
+            element: <Preview />
+          }
+        ]
+      }
+    ]
+  }
+]);
+
+export default router;
