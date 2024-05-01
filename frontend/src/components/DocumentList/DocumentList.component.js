@@ -6,10 +6,10 @@ function renderPreviewLink(to) {
 }
 
 function formatData(data) {
-  return data.map(({ created_at, document_name, fields, id }) => ({
+  return data.map(({ createdAt, name, fields, id }) => ({
     id,
-    'document title': document_name,
-    'created at': created_at,
+    'document title': name,
+    'created at': createdAt,
     'document size': fields?.length,
     preview: renderPreviewLink(id)
   }));

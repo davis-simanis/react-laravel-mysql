@@ -31,10 +31,41 @@ class Document extends Model
     const UPDATED_AT = null;
 
     /**
-    * Get the fields of a Document
-    */
-    public function fields() 
+     * Get the fields of a Document
+     */
+    public function fields()
     {
         return $this->hasMany(FieldConfiguration::class);
+    }
+
+    /**
+     * Save a new model and return the instance.
+     *
+     * @param  array  $attributes
+     * @return \Illuminate\Database\Eloquent\Model|$this
+     */
+    public static function create(array $attributes = [])
+    {
+        $resultFields = [];
+        $resultAttributes = [...$attributes];
+        unset($resultAttributes['fields']);
+
+        $documentFields = $attributes['fields'];
+        $document = static::query()->create($resultAttributes);
+
+        foreach ($documentFields as $field) {
+            $resultFields[] = FieldConfiguration::create([
+                'field_seq' => $field['sequence'],
+                'is_mandatory' => $field['isMandatory'] ?? false,
+                'field_type' => $field['type'],
+                'field_name' => $field['name'],
+                'document_id' => $document->id,
+                'select_values' => null
+            ]);
+        }
+
+        $document->fields = $resultFields;
+
+        return $document;
     }
 }

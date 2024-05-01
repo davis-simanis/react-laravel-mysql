@@ -1,26 +1,32 @@
-export default function fieldConfigs({id = '0'}) {
+import Field from './Field.component';
+
+export default function FieldConfigs({ id }) {
+  const fields = [
+    { label: 'Field sequence (weight)', name: `sequence-${id}`, type: 'number' },
+    {
+      label: 'Field type',
+      name: `type-${id}`,
+      type: 'select',
+      options: [
+        { value: 1, label: 'checkbox' },
+        { value: 2, label: 'number' },
+        { value: 3, label: 'select' }
+      ]
+    },
+    { label: 'Field name', name: `name-${id}`, type: 'text' },
+    {
+      label: 'Mandatory',
+      name: `isMandatory-${id}`,
+      type: 'checkbox',
+      isRequired: false
+    }
+  ];
+
   return (
-    <div>
-      <div>
-        <label htmlFor="sequence">Field sequence (weight)</label>
-        <input name={`sequence_${id}`} />
-      </div>
-      <div>
-        <label htmlFor="type">Field type</label>
-        <select name={`type_${id}`}>
-          <option>Input</option>
-          <option>Checkbox</option>
-          <option>Textbox</option>
-        </select>
-      </div>
-      <div>
-        <label htmlFor="name">Field name</label>
-        <input name={`name_${id}`} />
-      </div>
-      <div>
-        <label htmlFor="isMandatory">Mandatory</label>
-        <input name={`isMandatory_${id}`} type="checkbox" />
-      </div>
+    <div className="FieldConfig">
+      {fields.map((config, i) => (
+        <Field config={config} key={i} />
+      ))}
     </div>
   );
 }

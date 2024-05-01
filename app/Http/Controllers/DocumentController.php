@@ -30,16 +30,17 @@ class DocumentController
     public function store(Request $request)
     {
         $data = $request->validate([
-            'document_name' => ['required']
+            'document_name' => ['required'],
+            'fields' => ['required', 'list'],
         ]);
-        $data = request()->all(); // TODO remove when finished testing
-        // dd($data);
+
         // $documentConfig = DocumentConfiguration::create($data);
-        // $document = Document::create($data);
+        $document = Document::create($data);
+
 
         // dump($document->toArray(), $documentConfig->toArray()); // TODO remove when done tesing
 
-        return 'Successfully created document: ';
+        return printf('Successfully created document with id: %s', $document->id);
     }
 
     /**

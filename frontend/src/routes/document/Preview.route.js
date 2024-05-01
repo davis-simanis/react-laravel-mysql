@@ -3,7 +3,7 @@ import Field from '../../components/Field.component';
 
 function renderFields(fieldList) {
   return fieldList
-    .sort(({ field_seq: a }, { field_seq: b }) => a - b)
+    .sort(({ sequence: a }, { sequence: b }) => a - b)
     .map((config, i) => <Field config={config} key={i} />);
 }
 
@@ -25,11 +25,11 @@ export default function Preview() {
     );
   }
 
-  const { document_name, fields } = targetDocument;
+  const { name, fields } = targetDocument;
 
   return (
     <div>
-      <h1>{document_name}</h1>
+      <h1>{name}</h1>
       <div>{renderFields(fields)}</div>
       <div>
         <Link to="..">Back</Link>
