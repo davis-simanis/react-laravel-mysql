@@ -1,24 +1,38 @@
+import { useRouteLoaderData, useParams, Link } from 'react-router-dom';
+import Field from '../../components/Field.component';
+
+function renderFields(fieldList) {
+  return fieldList
+    .sort(({ field_seq: a }, { field_seq: b }) => a - b)
+    .map((config, i) => <Field config={config} key={i} />);
+}
 
 export default function Preview() {
+  const documentList = useRouteLoaderData('documents');
+  const { documentId: targetId } = useParams();
+  const targetDocument = documentList.find(
+    ({ id }) => String(id) === String(targetId)
+  );
+
+  if (!targetDocument) {
+    return (
+      <div>
+        <h1>No document with id {targetId}</h1>
+        <div>
+          <Link to="..">Back</Link>
+        </div>
+      </div>
+    );
+  }
+
+  const { document_name, fields } = targetDocument;
+
   return (
     <div>
-      <h3>Document title</h3>
+      <h1>{document_name}</h1>
+      <div>{renderFields(fields)}</div>
       <div>
-        <div>
-          <label for="document_name">Document title</label>
-          <input name="document_name" id="document_name" />
-        </div>
-        <div>
-          <label for="document_name">Document title</label>
-          <select name="document_name" id="document_name">
-            <option>Male</option>
-            <option>Female</option>
-          </select>
-        </div>
-        <div>
-          <label for="field_seq">Field sequence (weight)</label>
-          <input name="field_seq" id="field_seq" />
-        </div>
+        <Link to="..">Back</Link>
       </div>
     </div>
   );

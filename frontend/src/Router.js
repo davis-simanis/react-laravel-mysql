@@ -26,9 +26,16 @@ async function onPageRender() {
   return axios
     .get('http://localhost:8081/api/documents')
     .then(({ data }) => {
-      console.log(data);
+      const formattedData = data
+        .reduce((acc, { id, ...rest }) => {
+          acc[id] = { id, ...rest };
 
-      return data;
+          return acc;
+        }, [])
+        .filter(Boolean);
+      console.log(formattedData);
+
+      return formattedData;
     })
     .catch((error) => {
       console.log(error);
@@ -78,7 +85,7 @@ const router = createBrowserRouter([
           },
           {
             path: ':documentId',
-            element: <Preview />,
+            element: <Preview />
           }
         ]
       }
