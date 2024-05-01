@@ -19,7 +19,7 @@ class FieldConfigurationFactory extends Factory
         return [
             'field_seq' => $this->faker->numberBetween(0, 10),
             'is_mandatory' => $this->faker->boolean(),
-            'field_type' => $this->faker->numberBetween(0, 10),
+            'field_type' => $this->faker->numberBetween(1, 3),
             'field_name' => $this->faker->word(),
             'document_id' => $this->faker->numberBetween(0, 10),
             'select_values' => null

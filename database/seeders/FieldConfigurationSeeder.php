@@ -18,7 +18,7 @@ class FieldConfigurationSeeder extends Seeder
         $documents = DB::table('document')->get();
         
         foreach ($documents as $document) {
-            FieldConfiguration::factory($faker->numberBetween(1, 10))->create([
+            FieldConfiguration::factory($faker->numberBetween(1, 15))->create([
                 'document_id' => $document->id
             ]);
         }
