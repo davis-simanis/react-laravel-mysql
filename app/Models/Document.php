@@ -21,7 +21,7 @@ class Document extends Model
      *
      * @var array
      */
-    protected $fillable = ['document_name'];
+    protected $fillable = ['document_name', 'fields', 'id'];
 
     /**
      * Removes updated_at timestamp from model.
@@ -29,4 +29,12 @@ class Document extends Model
      * @var string|null
      */
     const UPDATED_AT = null;
+
+    /**
+    * Get the fields of a Document
+    */
+    public function fields() 
+    {
+        return $this->hasMany(FieldConfiguration::class);
+    }
 }

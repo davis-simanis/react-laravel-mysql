@@ -20,8 +20,13 @@ function renderTableHead(titles) {
 
 export default function Table({ data = [] }) {
   const [firstRow] = data;
-  const titles = Object.keys(firstRow || {});
 
+  if(!firstRow) {
+    return <h2>No rows to render</h2>
+  }
+
+  const titles = Object.keys(firstRow || {});
+  
   return (
     <table border="1" className="Table">
       {renderTableHead(titles)}

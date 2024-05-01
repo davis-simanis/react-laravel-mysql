@@ -1,19 +1,8 @@
-import { useDocumentList } from '../../store/Document/Document.context';
 import DocumentList from '../../components/DocumentList';
-import { useParams } from 'react-router-dom';
-import DocumentView from '../../components/DocumentView';
+import { useRouteLoaderData } from 'react-router-dom';
 
 export default function View() {
-//   const { document_id: targetId } = useParams();
-//   const { documentList = [] } = useDocumentList();
+  const documentList = useRouteLoaderData('documents');
 
-//   if (targetId) {
-//     const targetDocument = documentList.find(
-//       ({ document_id }) => String(document_id) === String(targetId)
-//     );
-
-//     return <DocumentView document={targetDocument} />;
-//   }
-
-  return <DocumentList />;
+  return <DocumentList documentList={documentList} />;
 }

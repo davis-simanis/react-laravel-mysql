@@ -54,9 +54,11 @@ const router = createBrowserRouter([
       </>
     ),
     errorElement: <ErrorElement />,
+    id: 'root',
     children: [
       {
         path: 'documents',
+        id: 'documents',
         element: (
           <div>
             <span>Document route</span>
@@ -68,10 +70,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <View />,
-            loader: () => {
-              return { data_fetch: 'this is data from db' };
-            }
+            element: <View />
           },
           {
             path: 'create',
@@ -80,9 +79,6 @@ const router = createBrowserRouter([
           {
             path: ':documentId',
             element: <Preview />,
-            loader: () => {
-              return { data_fetch: 'this is data from db' };
-            }
           }
         ]
       }

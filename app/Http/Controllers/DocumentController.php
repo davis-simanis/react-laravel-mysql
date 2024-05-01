@@ -16,20 +16,9 @@ class DocumentController
         $resultDocuments = [];
 
         foreach (Document::all() as $document) {
-            $documentConfig = DocumentConfiguration::where("document_id", $document->id)->first();
+            $document->fields = Document::find($document->id)->fields()->get();
 
-            if (!$documentConfig) {
-                continue;
-            }
-            //todo refactor
-            array_push(
-                $resultDocuments,
-                [
-                    ...$documentConfig->toArray(),
-                    ...$document->toArray(),
-                    'id' => $documentConfig->id
-                ]
-            );
+            array_push($resultDocuments, $document);
         }
 
         return response()->json($resultDocuments);
