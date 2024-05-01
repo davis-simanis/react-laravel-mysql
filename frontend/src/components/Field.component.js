@@ -23,7 +23,7 @@ function renderSelect({ name, label = name, type, options = [] }) {
   );
 }
 
-function renderInput({ name, label = name, type, isRequired = false }) {
+function renderInput({ name, label = name, type, min, isRequired = false }) {
   return (
     <div className="Field">
       <label className="Field-Label" htmlFor={name}>
@@ -34,6 +34,7 @@ function renderInput({ name, label = name, type, isRequired = false }) {
         name={name}
         type={type}
         required={isRequired}
+        min={min}
       />
     </div>
   );
