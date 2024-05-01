@@ -6,7 +6,7 @@ function renderFieldConfigs(qty) {
   const result = [];
 
   for (let i = 1; i <= qty; i++) {
-    result.push(<FieldConfig key={i}/>);
+    result.push(<FieldConfig key={i} id={i}/>);
   }
 
   return result;
@@ -14,24 +14,22 @@ function renderFieldConfigs(qty) {
 
 export default function Create() {
   const [fieldConfigCount, setFieldConfigCount] = useState(1);
-  const onSave = () => {
-    console.log('Saved!')
-  };
-  const onAddMode = () => {
+  const onAddMode = (e) => {
+    e.preventDefault();
     setFieldConfigCount(fieldConfigCount + 1);
   };
 
   return (
     <div>
-      <Form>
+      <Form method="post" action='..'>
         <div>
           <label htmlFor="document_name">Document name</label>
-          <input name="document_name" id="document_name" />
+          <input name="document_name" />
         </div>
         {renderFieldConfigs(fieldConfigCount)}
+        <button onClick={onAddMode}>Add more</button>
+        <button type="submit">Save</button>
       </Form>
-      <button onClick={onAddMode}>Add more</button>
-      <button onClick={onSave}>Save</button>
     </div>
   );
 }

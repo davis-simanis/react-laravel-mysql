@@ -40,15 +40,15 @@ class DocumentController
      */
     public function store(Request $request)
     {
-        // $data = $request->validate([
-        //     'document' => ['required']
-        // ]);
+        $data = $request->validate([
+            'document_name' => ['required']
+        ]);
         $data = request()->all(); // TODO remove when finished testing
-        dd($data);
-        $documentConfig = DocumentConfiguration::create($data);
-        $document = Document::create($data);
+        // dd($data);
+        // $documentConfig = DocumentConfiguration::create($data);
+        // $document = Document::create($data);
 
-        dump($document->toArray(), $documentConfig->toArray()); // TODO remove when done tesing
+        // dump($document->toArray(), $documentConfig->toArray()); // TODO remove when done tesing
 
         return 'Successfully created document: ';
     }
