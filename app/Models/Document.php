@@ -56,7 +56,7 @@ class Document extends Model
         foreach ($documentFields as $field) {
             $resultFields[] = FieldConfiguration::create([
                 'field_seq' => $field['sequence'],
-                'is_mandatory' => $field['isMandatory'] ?? false,
+                'is_mandatory' => $field['isMandatory'] ? true : false,
                 'field_type' => $field['type'],
                 'field_name' => $field['name'],
                 'document_id' => $document->id,
