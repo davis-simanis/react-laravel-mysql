@@ -1,5 +1,10 @@
 import React from 'react';
-import { Outlet, createBrowserRouter, useRouteError } from 'react-router-dom';
+import {
+  Outlet,
+  createBrowserRouter,
+  useRouteError,
+  redirect
+} from 'react-router-dom';
 import { View, Create, Preview } from './routes/document';
 import axios from 'axios';
 
@@ -39,16 +44,19 @@ function formatFieldResponse(field) {
 
 function formatDocumentResponse(response) {
   return response
-    .reduce((acc, { id, fields, document_name: name, created_at: createdAt }) => {
-      acc[id] = {
-        name,
-        id,
-        createdAt,
-        fields: fields.map((field) => formatFieldResponse(field))
-      };
+    .reduce(
+      (acc, { id, fields, document_name: name, created_at: createdAt }) => {
+        acc[id] = {
+          name,
+          id,
+          createdAt,
+          fields: fields.map((field) => formatFieldResponse(field))
+        };
 
-      return acc;
-    }, [])
+        return acc;
+      },
+      []
+    )
     .filter(Boolean);
 }
 
@@ -56,50 +64,24 @@ async function onFormSubmit({ request }) {
   const data = Object.fromEntries(await request.formData());
   const formattedData = formatFormData(data);
 
-  console.log('form submitted with data (formatted): ', formattedData);
-
   return axios
     .post('http://localhost:8081/api/documents', formattedData)
-    .then(({ data }) => {
-      console.log(data);
-
-      return data;
-    })
-    .catch((error) => {
-      console.log(error);
-
-      return error;
-    });
+    .then(({ data }) => data)
+    .catch((error) => error);
 }
 
 async function onPageRender() {
   return axios
     .get('http://localhost:8081/api/documents')
-    .then(({ data }) => {
-      // const formattedData = data
-      //   .reduce((acc, { id, ...rest }) => {
-      //     acc[id] = { id, ...rest };
-
-      //     return acc;
-      //   }, [])
-      //   .filter(Boolean);
-      const formattedData = formatDocumentResponse(data);
-      console.log('page rendered: ', formattedData);
-
-      return formattedData;
-    })
-    .catch((error) => {
-      console.log(error);
-
-      return error;
-    });
+    .then(({ data }) => formatDocumentResponse(data))
+    .catch((error) => error);
 }
 
 function ErrorElement() {
-  let error = useRouteError();
-  console.error(error);
+  const { data: errorMessage } = useRouteError();
+  console.error(useRouteError());
 
-  return <div>Dang!</div>;
+  return <div>{errorMessage}</div>;
 }
 
 const router = createBrowserRouter([
@@ -114,6 +96,13 @@ const router = createBrowserRouter([
     errorElement: <ErrorElement />,
     id: 'root',
     children: [
+      {
+        index: true,
+        id: 'login',
+        loader: () => {
+          return redirect(window.location.origin + ':8081');
+        }
+      },
       {
         path: 'documents',
         id: 'documents',
