@@ -28,7 +28,7 @@ export default function Table({ data = [] }) {
   const titles = Object.keys(firstRow || {});
   
   return (
-    <table border="1" className="Table">
+    <table className="table table-bordered table-striped">
       {renderTableHead(titles)}
       {renderTableBody(data)}
     </table>

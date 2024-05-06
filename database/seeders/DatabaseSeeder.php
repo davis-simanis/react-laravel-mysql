@@ -13,7 +13,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             DocumentSeeder::class,
-            FieldConfigurationSeeder::class
+            FieldConfigurationSeeder::class,
+            UserSeeder::class,
+            ProductSeeder::class,
+            PermissionsSeeder::class
         ]);
     }
 }

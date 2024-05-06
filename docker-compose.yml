@@ -5,6 +5,8 @@ services:
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
+                XDEBUG: '${APP_DEBUG:-false}'
+                XDEBUG_PORT: '${SAIL_XDEBUG_PORT:-9003}'
         image: sail-8.3/app
         extra_hosts:
             - 'host.docker.internal:host-gateway'
@@ -60,9 +62,9 @@ services:
         volumes:
             - ./frontend:/app
         ports:
-            - '${APP_FE_PORT}:80'
+            - '${APP_FE_PORT}:${APP_FE_PORT}'
         environment:
-            - PORT=80
+            - PORT=${APP_FE_PORT}
 volumes:
     mysql-data:
         driver: local

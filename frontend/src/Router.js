@@ -65,14 +65,14 @@ async function onFormSubmit({ request }) {
   const formattedData = formatFormData(data);
 
   return axios
-    .post('http://localhost:8081/api/documents', formattedData)
+    .post('http://localhost/api/documents', formattedData)
     .then(({ data }) => data)
     .catch((error) => error);
 }
 
 async function onPageRender() {
   return axios
-    .get('http://localhost:8081/api/documents')
+    .get('http://localhost/api/documents')
     .then(({ data }) => formatDocumentResponse(data))
     .catch((error) => error);
 }
@@ -96,13 +96,13 @@ const router = createBrowserRouter([
     errorElement: <ErrorElement />,
     id: 'root',
     children: [
-      {
-        index: true,
-        id: 'login',
-        loader: () => {
-          return redirect(window.location.origin + ':8081');
-        }
-      },
+      // {
+      //   index: true,
+      //   id: 'login',
+      //   loader: () => {
+      //     return redirect(window.location.origin + ':8081');
+      //   }
+      // },
       {
         path: 'documents',
         id: 'documents',
